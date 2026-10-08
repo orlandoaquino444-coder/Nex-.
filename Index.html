@@ -1,0 +1,2520 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#6b3f25">
+<title>Negocios</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f3f3f3;
+    color:#222;
+}
+
+button,input,textarea,select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.hidden{
+    display:none!important;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:#6b3f25;
+    color:white;
+    padding:13px 18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:bold;
+}
+
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.header-right button{
+    border:0;
+    background:white;
+    color:#6b3f25;
+    padding:8px 12px;
+    border-radius:8px;
+}
+
+.container{
+    width:100%;
+    max-width:1100px;
+    margin:auto;
+    padding:18px;
+}
+
+.auth-container{
+    max-width:430px;
+    margin:45px auto;
+}
+
+.card{
+    background:white;
+    border-radius:14px;
+    padding:18px;
+    margin-bottom:18px;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
+}
+
+h1,h2,h3{
+    margin-top:0;
+}
+
+.tabs{
+    display:flex;
+    gap:8px;
+    margin-bottom:18px;
+}
+
+.tabs button{
+    flex:1;
+    padding:11px;
+    border:0;
+    border-radius:8px;
+    background:#ddd;
+}
+
+.tabs button.active{
+    background:#6b3f25;
+    color:white;
+}
+
+input,
+textarea,
+select{
+    width:100%;
+    padding:12px;
+    margin:6px 0 10px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    outline:none;
+    background:white;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+    border-color:#6b3f25;
+}
+
+textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+.primary{
+    width:100%;
+    padding:12px;
+    border:0;
+    border-radius:8px;
+    background:#6b3f25;
+    color:white;
+    font-weight:bold;
+}
+
+.secondary{
+    padding:10px 14px;
+    border:0;
+    border-radius:8px;
+    background:#ddd;
+}
+
+.danger{
+    background:#b3261e!important;
+    color:white;
+}
+
+.search-row{
+    display:flex;
+    gap:8px;
+}
+
+.search-row input{
+    margin:0;
+}
+
+.search-row button{
+    border:0;
+    border-radius:8px;
+    padding:0 18px;
+    background:#6b3f25;
+    color:white;
+}
+
+.business-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+    gap:16px;
+}
+
+.business{
+    overflow:hidden;
+}
+
+.business-image{
+    width:100%;
+    height:190px;
+    object-fit:cover;
+    border-radius:10px;
+    background:#ddd;
+}
+
+.business-title{
+    margin:12px 0 5px;
+}
+
+.category{
+    display:inline-block;
+    background:#eee;
+    padding:5px 9px;
+    border-radius:20px;
+    font-size:13px;
+}
+
+.business-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+    margin-top:12px;
+}
+
+.business-actions button{
+    border:0;
+    border-radius:7px;
+    padding:9px 11px;
+}
+
+.map-box{
+    background:#f0f0f0;
+    border-radius:8px;
+    padding:10px;
+    margin-top:10px;
+}
+
+.profile-row{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    margin-bottom:15px;
+}
+
+.profile-image{
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    object-fit:cover;
+    background:#ddd;
+}
+
+.location-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+}
+
+.file-label{
+    display:block;
+    margin-top:7px;
+    margin-bottom:4px;
+    font-weight:bold;
+}
+
+.status{
+    margin-top:10px;
+    padding:10px;
+    border-radius:8px;
+    background:#eee;
+    display:none;
+}
+
+#message{
+    position:fixed;
+    z-index:9999;
+    left:15px;
+    right:15px;
+    bottom:15px;
+    background:#222;
+    color:white;
+    padding:13px;
+    border-radius:9px;
+    display:none;
+    text-align:center;
+}
+
+.loading{
+    text-align:center;
+    padding:25px;
+}
+
+.empty{
+    text-align:center;
+    color:#777;
+    padding:25px;
+}
+
+hr{
+    border:0;
+    border-top:1px solid #eee;
+    margin:20px 0;
+}
+
+@media(max-width:600px){
+
+    header{
+        padding:11px;
+    }
+
+    .logo{
+        font-size:18px;
+    }
+
+    .header-right{
+        font-size:13px;
+    }
+
+    .header-right button{
+        padding:7px 9px;
+    }
+
+    .container{
+        padding:10px;
+    }
+
+    .card{
+        padding:14px;
+    }
+
+    .search-row{
+        flex-direction:column;
+    }
+
+    .search-row button{
+        padding:12px;
+    }
+
+    .location-row{
+        grid-template-columns:1fr;
+    }
+
+    .profile-row{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header id="mainHeader" class="hidden">
+
+    <div class="logo">
+        Negocios
+    </div>
+
+    <div class="header-right">
+
+        <span id="headerUserName">
+            Usuario
+        </span>
+
+        <button id="logoutButton">
+            Salir
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- AUTENTICACIÓN -->
+
+<section id="authSection" class="container">
+
+    <div class="card auth-container">
+
+        <h1>Negocios</h1>
+
+        <p>
+            Encuentra y publica negocios.
+        </p>
+
+        <div class="tabs">
+
+            <button
+                id="loginTab"
+                class="active">
+                Iniciar sesión
+            </button>
+
+            <button
+                id="registerTab">
+                Registrarse
+            </button>
+
+        </div>
+
+
+        <!-- LOGIN -->
+
+        <div id="loginBox">
+
+            <h2>Iniciar sesión</h2>
+
+            <input
+                id="loginEmail"
+                type="email"
+                autocomplete="email"
+                placeholder="Correo electrónico">
+
+            <input
+                id="loginPassword"
+                type="password"
+                autocomplete="current-password"
+                placeholder="Contraseña">
+
+            <button
+                id="loginButton"
+                class="primary">
+                Iniciar sesión
+            </button>
+
+        </div>
+
+
+        <!-- REGISTRO -->
+
+        <div id="registerBox" class="hidden">
+
+            <h2>Crear cuenta</h2>
+
+            <input
+                id="registerName"
+                type="text"
+                maxlength="60"
+                placeholder="Nombre">
+
+            <input
+                id="registerEmail"
+                type="email"
+                autocomplete="email"
+                placeholder="Correo electrónico">
+
+            <input
+                id="registerPassword"
+                type="password"
+                autocomplete="new-password"
+                placeholder="Contraseña">
+
+            <input
+                id="registerPassword2"
+                type="password"
+                autocomplete="new-password"
+                placeholder="Repetir contraseña">
+
+            <button
+                id="registerButton"
+                class="primary">
+                Crear cuenta
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- APLICACIÓN -->
+
+<main id="app" class="container hidden">
+
+
+    <!-- BUSCAR -->
+
+    <section class="card">
+
+        <h2>Buscar negocios</h2>
+
+        <div class="search-row">
+
+            <input
+                id="searchInput"
+                type="search"
+                placeholder="Nombre, categoría o ciudad">
+
+            <button id="searchButton">
+                Buscar
+            </button>
+
+        </div>
+
+        <br>
+
+        <button
+            id="showAllButton"
+            class="secondary">
+            Mostrar todos
+        </button>
+
+    </section>
+
+
+
+    <!-- PUBLICAR -->
+
+    <section class="card">
+
+        <h2>Publicar mi negocio</h2>
+
+        <input
+            id="businessName"
+            maxlength="100"
+            placeholder="Nombre del negocio *">
+
+        <input
+            id="businessCategory"
+            maxlength="80"
+            placeholder="Categoría *">
+
+        <input
+            id="businessCity"
+            maxlength="80"
+            placeholder="Ciudad *">
+
+        <input
+            id="businessAddress"
+            maxlength="200"
+            placeholder="Dirección">
+
+        <input
+            id="businessPhone"
+            maxlength="40"
+            placeholder="Teléfono / WhatsApp">
+
+        <input
+            id="businessWebsite"
+            maxlength="300"
+            placeholder="Página web">
+
+        <textarea
+            id="businessDescription"
+            maxlength="1000"
+            placeholder="Descripción del negocio"></textarea>
+
+
+        <label class="file-label">
+            Imagen del negocio
+        </label>
+
+        <input
+            id="businessImage"
+            type="file"
+            accept="image/jpeg,image/png,image/webp">
+
+
+        <hr>
+
+        <h3>Ubicación</h3>
+
+        <button
+            id="locationButton"
+            class="secondary">
+            📍 Obtener mi ubicación
+        </button>
+
+        <div class="location-row">
+
+            <input
+                id="latitude"
+                placeholder="Latitud"
+                readonly>
+
+            <input
+                id="longitude"
+                placeholder="Longitud"
+                readonly>
+
+        </div>
+
+        <div
+            id="locationStatus"
+            class="status">
+        </div>
+
+
+        <button
+            id="publishButton"
+            class="primary">
+            Publicar negocio
+        </button>
+
+    </section>
+
+
+
+    <!-- LISTADO -->
+
+    <section class="card">
+
+        <h2>Negocios</h2>
+
+        <div
+            id="businessList"
+            class="business-grid">
+
+            <div class="loading">
+                Cargando negocios...
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- PERFIL -->
+
+    <section class="card">
+
+        <h2>Mi perfil</h2>
+
+        <div class="profile-row">
+
+            <img
+                id="profileImagePreview"
+                class="profile-image"
+                src="https://via.placeholder.com/100?text=Perfil"
+                alt="Perfil">
+
+            <div>
+                <strong>
+                    Foto de perfil
+                </strong>
+
+                <input
+                    id="profileImage"
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp">
+            </div>
+
+        </div>
+
+
+        <input
+            id="profileName"
+            maxlength="60"
+            placeholder="Nombre">
+
+
+        <button
+            id="saveProfileButton"
+            class="primary">
+            Guardar perfil
+        </button>
+
+    </section>
+
+</main>
+
+
+<div id="message"></div>
+
+
+
+<script type="module">
+
+/* =========================================================
+   FIREBASE
+========================================================= */
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+
+
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged,
+    updateProfile
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    getDocs,
+    doc,
+    getDoc,
+    setDoc,
+    deleteDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyBlfv0pZJ4G68rDMaSNG_S2EGOptBVae_E",
+
+    authDomain:
+        "mi-red-a687d.firebaseapp.com",
+
+    projectId:
+        "mi-red-a687d",
+
+    storageBucket:
+        "mi-red-a687d.firebasestorage.app",
+
+    messagingSenderId:
+        "9017246628",
+
+    appId:
+        "1:9017246628:web:175a4126dfa4d3e5627731",
+
+    measurementId:
+        "G-1KK0C750BQ"
+
+};
+
+
+
+const firebaseApp =
+    initializeApp(firebaseConfig);
+
+
+const auth =
+    getAuth(firebaseApp);
+
+
+const db =
+    getFirestore(firebaseApp);
+
+
+
+/* =========================================================
+   CLOUDINARY
+========================================================= */
+
+const CLOUDINARY_CLOUD_NAME =
+    "olte8v49";
+
+
+const CLOUDINARY_UPLOAD_PRESET =
+    "Social red";
+
+
+const CLOUDINARY_UPLOAD_URL =
+    "https://api.cloudinary.com/v1_1/"
+    + CLOUDINARY_CLOUD_NAME
+    + "/image/upload";
+
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+let currentUser = null;
+
+let allBusinesses = [];
+
+
+
+/* =========================================================
+   ELEMENTOS
+========================================================= */
+
+const authSection =
+    document.getElementById("authSection");
+
+const app =
+    document.getElementById("app");
+
+const header =
+    document.getElementById("mainHeader");
+
+const messageBox =
+    document.getElementById("message");
+
+
+
+/* =========================================================
+   MENSAJES
+========================================================= */
+
+let messageTimer = null;
+
+
+function showMessage(text){
+
+    clearTimeout(messageTimer);
+
+    messageBox.textContent = text;
+
+    messageBox.style.display = "block";
+
+    messageTimer = setTimeout(() => {
+
+        messageBox.style.display = "none";
+
+    },4000);
+
+}
+
+
+
+/* =========================================================
+   ESCAPAR HTML
+========================================================= */
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+
+/* =========================================================
+   ERRORES
+========================================================= */
+
+function firebaseError(error){
+
+    const code =
+        error?.code || "";
+
+    const errors = {
+
+        "auth/email-already-in-use":
+            "Ese correo ya está registrado.",
+
+        "auth/invalid-email":
+            "El correo no es válido.",
+
+        "auth/weak-password":
+            "La contraseña debe tener al menos 6 caracteres.",
+
+        "auth/invalid-credential":
+            "Correo o contraseña incorrectos.",
+
+        "auth/user-not-found":
+            "No existe una cuenta con ese correo.",
+
+        "auth/wrong-password":
+            "Contraseña incorrecta.",
+
+        "auth/too-many-requests":
+            "Demasiados intentos. Espera un momento.",
+
+        "auth/network-request-failed":
+            "Problema de conexión a Internet.",
+
+        "permission-denied":
+            "Firebase rechazó la operación por las reglas de seguridad."
+
+    };
+
+    return errors[code]
+        || error?.message
+        || "Ocurrió un error.";
+
+}
+
+
+
+/* =========================================================
+   CAMBIAR LOGIN / REGISTRO
+========================================================= */
+
+document
+    .getElementById("loginTab")
+    .addEventListener("click",() => {
+
+        document
+            .getElementById("loginBox")
+            .classList.remove("hidden");
+
+        document
+            .getElementById("registerBox")
+            .classList.add("hidden");
+
+        document
+            .getElementById("loginTab")
+            .classList.add("active");
+
+        document
+            .getElementById("registerTab")
+            .classList.remove("active");
+
+    });
+
+
+
+document
+    .getElementById("registerTab")
+    .addEventListener("click",() => {
+
+        document
+            .getElementById("loginBox")
+            .classList.add("hidden");
+
+        document
+            .getElementById("registerBox")
+            .classList.remove("hidden");
+
+        document
+            .getElementById("loginTab")
+            .classList.remove("active");
+
+        document
+            .getElementById("registerTab")
+            .classList.add("active");
+
+    });
+
+
+
+/* =========================================================
+   REGISTRO
+========================================================= */
+
+document
+    .getElementById("registerButton")
+    .addEventListener("click",async () => {
+
+        const name =
+            document
+            .getElementById("registerName")
+            .value
+            .trim();
+
+        const email =
+            document
+            .getElementById("registerEmail")
+            .value
+            .trim();
+
+        const password =
+            document
+            .getElementById("registerPassword")
+            .value;
+
+        const password2 =
+            document
+            .getElementById("registerPassword2")
+            .value;
+
+
+        if(!name || !email || !password){
+
+            showMessage(
+                "Completa todos los campos."
+            );
+
+            return;
+        }
+
+
+        if(password.length < 6){
+
+            showMessage(
+                "La contraseña debe tener al menos 6 caracteres."
+            );
+
+            return;
+        }
+
+
+        if(password !== password2){
+
+            showMessage(
+                "Las contraseñas no coinciden."
+            );
+
+            return;
+        }
+
+
+        try{
+
+            const credential =
+                await createUserWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
+
+
+            await updateProfile(
+                credential.user,
+                {
+                    displayName:name
+                }
+            );
+
+
+            await setDoc(
+                doc(
+                    db,
+                    "users",
+                    credential.user.uid
+                ),
+                {
+                    uid:credential.user.uid,
+                    name:name,
+                    email:email,
+                    photoURL:"",
+                    createdAt:serverTimestamp()
+                }
+            );
+
+
+            showMessage(
+                "Cuenta creada correctamente."
+            );
+
+
+        }catch(error){
+
+            console.error(error);
+
+            showMessage(
+                firebaseError(error)
+            );
+
+        }
+
+    });
+
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+document
+    .getElementById("loginButton")
+    .addEventListener("click",async () => {
+
+        const email =
+            document
+            .getElementById("loginEmail")
+            .value
+            .trim();
+
+        const password =
+            document
+            .getElementById("loginPassword")
+            .value;
+
+
+        if(!email || !password){
+
+            showMessage(
+                "Escribe tu correo y contraseña."
+            );
+
+            return;
+        }
+
+
+        try{
+
+            await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+
+            showMessage(
+                "Sesión iniciada."
+            );
+
+
+        }catch(error){
+
+            console.error(error);
+
+            showMessage(
+                firebaseError(error)
+            );
+
+        }
+
+    });
+
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+document
+    .getElementById("logoutButton")
+    .addEventListener("click",async () => {
+
+        try{
+
+            await signOut(auth);
+
+        }catch(error){
+
+            console.error(error);
+
+            showMessage(
+                "No se pudo cerrar la sesión."
+            );
+
+        }
+
+    });
+
+
+
+/* =========================================================
+   AUTH STATE
+========================================================= */
+
+onAuthStateChanged(
+    auth,
+    async user => {
+
+        currentUser = user;
+
+
+        if(user){
+
+            authSection
+                .classList
+                .add("hidden");
+
+            app
+                .classList
+                .remove("hidden");
+
+            header
+                .classList
+                .remove("hidden");
+
+
+            document
+                .getElementById("headerUserName")
+                .textContent =
+                user.displayName
+                || user.email
+                || "Usuario";
+
+
+            await loadProfile();
+
+            await loadBusinesses();
+
+
+        }else{
+
+            authSection
+                .classList
+                .remove("hidden");
+
+            app
+                .classList
+                .add("hidden");
+
+            header
+                .classList
+                .add("hidden");
+
+        }
+
+    }
+);
+
+
+
+/* =========================================================
+   CLOUDINARY UPLOAD
+========================================================= */
+
+async function uploadToCloudinary(file){
+
+    if(!file){
+
+        return null;
+    }
+
+
+    if(!file.type.startsWith("image/")){
+
+        throw new Error(
+            "El archivo seleccionado no es una imagen."
+        );
+
+    }
+
+
+    const maxSize =
+        10 * 1024 * 1024;
+
+
+    if(file.size > maxSize){
+
+        throw new Error(
+            "La imagen supera el límite de 10 MB."
+        );
+
+    }
+
+
+    const formData =
+        new FormData();
+
+
+    formData.append(
+        "file",
+        file
+    );
+
+
+    formData.append(
+        "upload_preset",
+        CLOUDINARY_UPLOAD_PRESET
+    );
+
+
+    const response =
+        await fetch(
+            CLOUDINARY_UPLOAD_URL,
+            {
+                method:"POST",
+                body:formData
+            }
+        );
+
+
+    let data = null;
+
+    try{
+
+        data =
+            await response.json();
+
+    }catch{
+
+        throw new Error(
+            "Cloudinary no devolvió una respuesta válida."
+        );
+
+    }
+
+
+    if(!response.ok){
+
+        console.error(
+            "Cloudinary:",
+            data
+        );
+
+
+        throw new Error(
+            data?.error?.message
+            || "Cloudinary rechazó la imagen."
+        );
+
+    }
+
+
+    if(!data.secure_url){
+
+        throw new Error(
+            "Cloudinary no devolvió la URL de la imagen."
+        );
+
+    }
+
+
+    return data.secure_url;
+
+}
+
+
+
+/* =========================================================
+   PUBLICAR NEGOCIO
+========================================================= */
+
+document
+    .getElementById("publishButton")
+    .addEventListener("click",async () => {
+
+        if(!currentUser){
+
+            showMessage(
+                "Debes iniciar sesión."
+            );
+
+            return;
+        }
+
+
+        const name =
+            document
+            .getElementById("businessName")
+            .value
+            .trim();
+
+        const category =
+            document
+            .getElementById("businessCategory")
+            .value
+            .trim();
+
+        const city =
+            document
+            .getElementById("businessCity")
+            .value
+            .trim();
+
+        const address =
+            document
+            .getElementById("businessAddress")
+            .value
+            .trim();
+
+        const phone =
+            document
+            .getElementById("businessPhone")
+            .value
+            .trim();
+
+        const website =
+            document
+            .getElementById("businessWebsite")
+            .value
+            .trim();
+
+        const description =
+            document
+            .getElementById("businessDescription")
+            .value
+            .trim();
+
+        const latitude =
+            document
+            .getElementById("latitude")
+            .value
+            .trim();
+
+        const longitude =
+            document
+            .getElementById("longitude")
+            .value
+            .trim();
+
+        const file =
+            document
+            .getElementById("businessImage")
+            .files[0];
+
+
+        if(!name || !category || !city){
+
+            showMessage(
+                "Nombre, categoría y ciudad son obligatorios."
+            );
+
+            return;
+        }
+
+
+        const publishButton =
+            document
+            .getElementById("publishButton");
+
+
+        publishButton.disabled = true;
+
+        publishButton.textContent =
+            "Publicando...";
+
+
+        try{
+
+            let imageURL = "";
+
+
+            if(file){
+
+                showMessage(
+                    "Subiendo imagen..."
+                );
+
+
+                imageURL =
+                    await uploadToCloudinary(
+                        file
+                    );
+
+            }
+
+
+            await addDoc(
+                collection(
+                    db,
+                    "businesses"
+                ),
+                {
+
+                    ownerId:
+                        currentUser.uid,
+
+                    ownerName:
+                        currentUser.displayName
+                        || currentUser.email
+                        || "Usuario",
+
+                    name:name,
+
+                    category:category,
+
+                    city:city,
+
+                    address:address,
+
+                    phone:phone,
+
+                    website:website,
+
+                    description:description,
+
+                    imageURL:imageURL,
+
+                    latitude:
+                        latitude
+                        ? Number(latitude)
+                        : null,
+
+                    longitude:
+                        longitude
+                        ? Number(longitude)
+                        : null,
+
+                    createdAt:
+                        serverTimestamp()
+
+                }
+            );
+
+
+            document
+                .getElementById("businessName")
+                .value = "";
+
+            document
+                .getElementById("businessCategory")
+                .value = "";
+
+            document
+                .getElementById("businessCity")
+                .value = "";
+
+            document
+                .getElementById("businessAddress")
+                .value = "";
+
+            document
+                .getElementById("businessPhone")
+                .value = "";
+
+            document
+                .getElementById("businessWebsite")
+                .value = "";
+
+            document
+                .getElementById("businessDescription")
+                .value = "";
+
+            document
+                .getElementById("businessImage")
+                .value = "";
+
+            document
+                .getElementById("latitude")
+                .value = "";
+
+            document
+                .getElementById("longitude")
+                .value = "";
+
+
+            showMessage(
+                "Negocio publicado correctamente."
+            );
+
+
+            await loadBusinesses();
+
+
+        }catch(error){
+
+            console.error(error);
+
+            showMessage(
+                error.message
+                || "No se pudo publicar el negocio."
+            );
+
+        }finally{
+
+            publishButton.disabled = false;
+
+            publishButton.textContent =
+                "Publicar negocio";
+
+        }
+
+    });
+
+
+
+/* =========================================================
+   CARGAR NEGOCIOS
+========================================================= */
+
+async function loadBusinesses(){
+
+    const list =
+        document
+        .getElementById("businessList");
+
+
+    list.innerHTML =
+        `<div class="loading">
+            Cargando negocios...
+        </div>`;
+
+
+    try{
+
+        const snapshot =
+            await getDocs(
+                collection(
+                    db,
+                    "businesses"
+                )
+            );
+
+
+        allBusinesses = [];
+
+
+        snapshot.forEach(item => {
+
+            allBusinesses.push({
+
+                id:item.id,
+
+                ...item.data()
+
+            });
+
+        });
+
+
+        allBusinesses.sort(
+            (a,b) => {
+
+                const aTime =
+                    a.createdAt?.seconds
+                    || 0;
+
+                const bTime =
+                    b.createdAt?.seconds
+                    || 0;
+
+                return bTime-aTime;
+
+            }
+        );
+
+
+        renderBusinesses(
+            allBusinesses
+        );
+
+
+    }catch(error){
+
+        console.error(error);
+
+        list.innerHTML =
+            `<div class="empty">
+                No se pudieron cargar los negocios.
+            </div>`;
+
+
+        showMessage(
+            firebaseError(error)
+        );
+
+    }
+
+}
+
+
+
+/* =========================================================
+   RENDER NEGOCIOS
+========================================================= */
+
+function renderBusinesses(list){
+
+    const container =
+        document
+        .getElementById("businessList");
+
+
+    container.innerHTML = "";
+
+
+    if(!list.length){
+
+        container.innerHTML =
+            `<div class="empty">
+                No hay negocios para mostrar.
+            </div>`;
+
+        return;
+
+    }
+
+
+    list.forEach(business => {
+
+        const card =
+            document.createElement("article");
+
+
+        card.className =
+            "card business";
+
+
+        const image =
+            business.imageURL
+            || "https://via.placeholder.com/600x350?text=Negocio";
+
+
+        let locationHTML = "";
+
+
+        if(
+            typeof business.latitude === "number"
+            &&
+            typeof business.longitude === "number"
+        ){
+
+            const mapsURL =
+                "https://www.google.com/maps/search/?api=1&query="
+                + encodeURIComponent(
+                    business.latitude
+                    + ","
+                    + business.longitude
+                );
+
+
+            locationHTML = `
+                <div class="map-box">
+                    📍 Ubicación disponible
+                    <br><br>
+                    <a
+                        href="${mapsURL}"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Abrir en Google Maps
+                    </a>
+                </div>
+            `;
+
+        }else if(business.address){
+
+            const mapsURL =
+                "https://www.google.com/maps/search/?api=1&query="
+                + encodeURIComponent(
+                    business.address
+                    + ", "
+                    + (business.city || "")
+                );
+
+
+            locationHTML = `
+                <div class="map-box">
+                    📍 ${escapeHTML(business.address)}
+                    <br><br>
+                    <a
+                        href="${mapsURL}"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Buscar en Google Maps
+                    </a>
+                </div>
+            `;
+
+        }
+
+
+        let phoneHTML = "";
+
+
+        if(business.phone){
+
+            phoneHTML = `
+                <p>
+                    📞
+                    ${escapeHTML(business.phone)}
+                </p>
+            `;
+
+        }
+
+
+        let websiteHTML = "";
+
+
+        if(business.website){
+
+            const safeURL =
+                normalizeURL(
+                    business.website
+                );
+
+
+            websiteHTML = `
+                <p>
+                    🌐
+                    <a
+                        href="${safeURL}"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Visitar página
+                    </a>
+                </p>
+            `;
+
+        }
+
+
+        let actionsHTML = "";
+
+
+        if(business.phone){
+
+            actionsHTML += `
+                <button
+                    class="secondary"
+                    data-phone="${escapeHTML(business.phone)}"
+                    data-action="whatsapp">
+                    WhatsApp
+                </button>
+            `;
+
+        }
+
+
+        if(
+            business.ownerId
+            === currentUser?.uid
+        ){
+
+            actionsHTML += `
+                <button
+                    class="danger"
+                    data-id="${escapeHTML(business.id)}"
+                    data-action="delete">
+                    Eliminar
+                </button>
+            `;
+
+        }
+
+
+        card.innerHTML = `
+
+            <img
+                class="business-image"
+                src="${escapeHTML(image)}"
+                alt="${escapeHTML(business.name || "Negocio")}"
+                loading="lazy"
+                onerror="
+                    this.src='https://via.placeholder.com/600x350?text=Negocio'
+                ">
+
+            <h3 class="business-title">
+                ${escapeHTML(
+                    business.name
+                    || "Sin nombre"
+                )}
+            </h3>
+
+            <span class="category">
+                ${escapeHTML(
+                    business.category
+                    || "Sin categoría"
+                )}
+            </span>
+
+            <p>
+                🏙️
+                ${escapeHTML(
+                    business.city
+                    || "Sin ciudad"
+                )}
+            </p>
+
+            ${
+                business.description
+                ?
+                `<p>
+                    ${escapeHTML(
+                        business.description
+                    )}
+                </p>`
+                :
+                ""
+            }
+
+            ${phoneHTML}
+
+            ${websiteHTML}
+
+            ${locationHTML}
+
+            <div class="business-actions">
+                ${actionsHTML}
+            </div>
+        `;
+
+
+        container.appendChild(card);
+
+    });
+
+
+    container
+        .querySelectorAll(
+            '[data-action="delete"]'
+        )
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    deleteBusiness(
+                        button.dataset.id
+                    );
+
+                }
+            );
+
+        });
+
+
+    container
+        .querySelectorAll(
+            '[data-action="whatsapp"]'
+        )
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    openWhatsApp(
+                        button.dataset.phone
+                    );
+
+                }
+            );
+
+        });
+
+}
+
+
+
+/* =========================================================
+   BUSCAR
+========================================================= */
+
+function searchBusinesses(){
+
+    const text =
+        document
+        .getElementById("searchInput")
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    if(!text){
+
+        renderBusinesses(
+            allBusinesses
+        );
+
+        return;
+    }
+
+
+    const filtered =
+        allBusinesses.filter(
+            business => {
+
+                const searchable =
+                    [
+
+                        business.name,
+
+                        business.category,
+
+                        business.city,
+
+                        business.address,
+
+                        business.description
+
+                    ]
+                    .filter(Boolean)
+                    .join(" ")
+                    .toLowerCase();
+
+
+                return searchable.includes(
+                    text
+                );
+
+            }
+        );
+
+
+    renderBusinesses(
+        filtered
+    );
+
+}
+
+
+document
+    .getElementById("searchButton")
+    .addEventListener(
+        "click",
+        searchBusinesses
+    );
+
+
+document
+    .getElementById("showAllButton")
+    .addEventListener(
+        "click",
+        () => {
+
+            document
+                .getElementById("searchInput")
+                .value = "";
+
+            renderBusinesses(
+                allBusinesses
+            );
+
+        }
+    );
+
+
+document
+    .getElementById("searchInput")
+    .addEventListener(
+        "keydown",
+        event => {
+
+            if(event.key === "Enter"){
+
+                searchBusinesses();
+
+            }
+
+        }
+    );
+
+
+
+/* =========================================================
+   ELIMINAR NEGOCIO
+========================================================= */
+
+async function deleteBusiness(id){
+
+    if(!currentUser){
+
+        return;
+    }
+
+
+    const business =
+        allBusinesses.find(
+            item => item.id === id
+        );
+
+
+    if(!business){
+
+        showMessage(
+            "El negocio no existe."
+        );
+
+        return;
+    }
+
+
+    if(
+        business.ownerId
+        !== currentUser.uid
+    ){
+
+        showMessage(
+            "Solo el propietario puede eliminarlo."
+        );
+
+        return;
+    }
+
+
+    const confirmed =
+        confirm(
+            "¿Seguro que quieres eliminar este negocio?"
+        );
+
+
+    if(!confirmed){
+
+        return;
+    }
+
+
+    try{
+
+        await deleteDoc(
+            doc(
+                db,
+                "businesses",
+                id
+            )
+        );
+
+
+        showMessage(
+            "Negocio eliminado."
+        );
+
+
+        await loadBusinesses();
+
+
+    }catch(error){
+
+        console.error(error);
+
+        showMessage(
+            firebaseError(error)
+        );
+
+    }
+
+}
+
+
+
+/* =========================================================
+   WHATSAPP
+========================================================= */
+
+function openWhatsApp(phone){
+
+    if(!phone){
+
+        showMessage(
+            "Este negocio no tiene teléfono."
+        );
+
+        return;
+    }
+
+
+    let clean =
+        phone.replace(
+            /[^\d]/g,
+            ""
+        );
+
+
+    if(clean.length < 7){
+
+        showMessage(
+            "El número de teléfono no parece válido."
+        );
+
+        return;
+    }
+
+
+    window.open(
+        "https://wa.me/"
+        + clean,
+        "_blank",
+        "noopener"
+    );
+
+}
+
+
+
+/* =========================================================
+   GOOGLE MAPS / GPS
+========================================================= */
+
+document
+    .getElementById("locationButton")
+    .addEventListener(
+        "click",
+        () => {
+
+            if(!navigator.geolocation){
+
+                showMessage(
+                    "Este navegador no permite obtener la ubicación."
+                );
+
+                return;
+            }
+
+
+            const status =
+                document
+                .getElementById(
+                    "locationStatus"
+                );
+
+
+            status.style.display =
+                "block";
+
+            status.textContent =
+                "Obteniendo ubicación...";
+
+
+            navigator.geolocation.getCurrentPosition(
+
+                position => {
+
+                    const latitude =
+                        position.coords.latitude;
+
+                    const longitude =
+                        position.coords.longitude;
+
+
+                    document
+                        .getElementById("latitude")
+                        .value =
+                        latitude;
+
+
+                    document
+                        .getElementById("longitude")
+                        .value =
+                        longitude;
+
+
+                    status.textContent =
+                        "Ubicación obtenida correctamente.";
+
+
+                    showMessage(
+                        "Ubicación obtenida."
+                    );
+
+                },
+
+
+                error => {
+
+                    console.error(error);
+
+
+                    status.textContent =
+                        "No se pudo obtener la ubicación. Permite el acceso a la ubicación del navegador.";
+
+
+                    showMessage(
+                        "No se pudo obtener la ubicación."
+                    );
+
+                },
+
+
+                {
+
+                    enableHighAccuracy:true,
+
+                    timeout:15000,
+
+                    maximumAge:0
+
+                }
+
+            );
+
+        }
+    );
+
+
+
+/* =========================================================
+   PERFIL
+========================================================= */
+
+async function loadProfile(){
+
+    if(!currentUser){
+
+        return;
+    }
+
+
+    try{
+
+        const profileRef =
+            doc(
+                db,
+                "users",
+                currentUser.uid
+            );
+
+
+        const profileSnapshot =
+            await getDoc(
+                profileRef
+            );
+
+
+        const nameInput =
+            document
+            .getElementById(
+                "profileName"
+            );
+
+
+        const imagePreview =
+            document
+            .getElementById(
+                "profileImagePreview"
+            );
+
+
+        if(profileSnapshot.exists()){
+
+            const data =
+                profileSnapshot.data();
+
+
+            nameInput.value =
+                data.name
+                || currentUser.displayName
+                || "";
+
+
+            if(data.photoURL){
+
+                imagePreview.src =
+                    data.photoURL;
+
+            }
+
+        }else{
+
+            nameInput.value =
+                currentUser.displayName
+                || "";
+
+        }
+
+
+    }catch(error){
+
+        console.error(error);
+
+    }
+
+}
+
+
+
+/* =========================================================
+   GUARDAR PERFIL
+========================================================= */
+
+document
+    .getElementById(
+        "saveProfileButton"
+    )
+    .addEventListener(
+        "click",
+        async () => {
+
+            if(!currentUser){
+
+                return;
+            }
+
+
+            const name =
+                document
+                .getElementById(
+                    "profileName"
+                )
+                .value
+                .trim();
+
+
+            const file =
+                document
+                .getElementById(
+                    "profileImage"
+                )
+                .files[0];
+
+
+            if(!name){
+
+                showMessage(
+                    "Escribe un nombre."
+                );
+
+                return;
+            }
+
+
+            const button =
+                document
+                .getElementById(
+                    "saveProfileButton"
+                );
+
+
+            button.disabled = true;
+
+            button.textContent =
+                "Guardando...";
+
+
+            try{
+
+                let photoURL = null;
+
+
+                if(file){
+
+                    showMessage(
+                        "Subiendo foto..."
+                    );
+
+
+                    photoURL =
+                        await uploadToCloudinary(
+                            file
+                        );
+
+
+                    document
+                        .getElementById(
+                            "profileImagePreview"
+                        )
+                        .src =
+                        photoURL;
+
+                }
+
+
+                const profileData = {
+
+                    uid:
+                        currentUser.uid,
+
+                    name:name,
+
+                    email:
+                        currentUser.email,
+
+                    updatedAt:
+                        serverTimestamp()
+
+                };
+
+
+                if(photoURL){
+
+                    profileData.photoURL =
+                        photoURL;
+
+                }
+
+
+                await setDoc(
+
+                    doc(
+                        db,
+                        "users",
+                        currentUser.uid
+                    ),
+
+                    profileData,
+
+                    {
+                        merge:true
+                    }
+
+                );
+
+
+                await updateProfile(
+
+                    currentUser,
+
+                    {
+
+                        displayName:name,
+
+                        ...(photoURL
+                            ?
+                            {
+                                photoURL:
+                                    photoURL
+                            }
+                            :
+                            {}
+                        )
+
+                    }
+
+                );
+
+
+                document
+                    .getElementById(
+                        "headerUserName"
+                    )
+                    .textContent =
+                    name;
+
+
+                showMessage(
+                    "Perfil actualizado."
+                );
+
+
+            }catch(error){
+
+                console.error(error);
+
+                showMessage(
+                    error.message
+                    || "No se pudo guardar el perfil."
+                );
+
+            }finally{
+
+                button.disabled = false;
+
+                button.textContent =
+                    "Guardar perfil";
+
+            }
+
+        }
+    );
+
+
+
+/* =========================================================
+   NORMALIZAR URL
+========================================================= */
+
+function normalizeURL(url){
+
+    if(!url){
+
+        return "#";
+    }
+
+
+    const value =
+        url.trim();
+
+
+    if(
+        value.startsWith("https://")
+        ||
+        value.startsWith("http://")
+    ){
+
+        return value;
+
+    }
+
+
+    return "https://" + value;
+
+}
+
+</script>
+
+</body>
+</html>
